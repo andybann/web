@@ -87,6 +87,15 @@
             justify-content: center;
             align-items: center;
         }
+        /* Media query para móviles: reducir altura del contenedor de botones */
+        @media (max-width: 768px) {
+            .buttons-container {
+                height: 300px; /* Altura más pequeña en móviles */
+            }
+            .container {
+                padding: 40px; /* Padding más pequeño en móviles */
+            }
+        }
         #btnSi, #btnNo {
             transition: all 0.6s ease;
             border-radius: 35px;
@@ -287,14 +296,17 @@
         }
 
         function respuestaNo() {
-            // Mover el botón No a una posición aleatoria
+            // Mover el botón No a una posición aleatoria dentro del contenedor
             const btnNo = document.getElementById('btnNo');
             btnNo.style.position = 'absolute';
             const container = document.querySelector('.buttons-container');
             const containerRect = container.getBoundingClientRect();
             
-            const randomTop = Math.random() * (containerRect.height - btnNo.offsetHeight);
-            const randomLeft = Math.random() * (containerRect.width - btnNo.offsetWidth);
+            // Generar posiciones aleatorias asegurando que el botón quepa dentro del contenedor
+            const maxTop = containerRect.height - btnNo.offsetHeight;
+            const maxLeft = containerRect.width - btnNo.offsetWidth;
+            const randomTop = Math.random() * Math.max(0, maxTop);
+            const randomLeft = Math.random() * Math.max(0, maxLeft);
             
             btnNo.style.top = randomTop + 'px';
             btnNo.style.left = randomLeft + 'px';
